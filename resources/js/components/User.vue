@@ -65,8 +65,7 @@
            
         },
         components: {
-            'user-list':UserList,
-            'user-edit':UserEdit
+
         },
         mounted() {
             this.getUsers();

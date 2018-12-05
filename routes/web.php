@@ -14,3 +14,4 @@ Route::get('/','VueController@index');
 
 Route::get('/tictactoe','VueController@tictactoe');
 
+Route::get('/apiItems', 'ItemControllerAPI@getItems');
