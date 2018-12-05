@@ -50595,7 +50595,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -50774,7 +50773,7 @@ module.exports = {
 	props: ['items'],
 	methods: {
 		getProfilePhoto: function getProfilePhoto(photo_url) {
-			return '/storage/app/public/items';
+			return 'img/items/' + photo_url;
 		}
 	}
 };

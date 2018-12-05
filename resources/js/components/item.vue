@@ -6,8 +6,7 @@
 
 		<item-list :items="items" ref="itemsListRef" ></item-list>
 
-		</div>			
-	</div>				
+		</div>							
 </template>
 
 <script type="text/javascript">

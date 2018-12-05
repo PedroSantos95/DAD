@@ -65,7 +65,6 @@
            
         },
         components: {
-           
         },
         mounted() {
             this.getUsers();

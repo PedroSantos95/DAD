@@ -27,7 +27,7 @@
 		props: ['items'],
 	    methods: {
         	getProfilePhoto(photo_url){
-        		return '/storage/app/public/items';
+        		return `img/items/${photo_url}`;
         	}
         },		
 	}
