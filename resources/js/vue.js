@@ -10,34 +10,30 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-const app = new Vue({
-    el: '#app',
-    data: {
-        title: 'List Users',
-        editingUser: false,   
-        showSuccess: false,
-        showFailure: false,
-        successMessage: '',
-        failMessage: '',
-        currentUser: {},
-        users: [],
-        departments: []
-    },
-    methods: {
-        editUser: function(user){
-         
-        },
-        deleteUser: function(user){
-         
-        },
-        saveUser: function(){
-         
-        },
-        cancelEdit: function(){
-         
-        }
-    },
-    mounted() {
-        
-    }
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+const user = Vue.component('user', require('./components/user.vue'));
+
+const item = Vue.component('item', require('./components/item.vue'));
+const itemList = Vue.component('item-list', require('./components/itemList.vue'));
+
+
+const routes = [
+  { path: '/', redirect: '/items' },
+  //{ path: '/users', component: user },
+  { path: '/items', component: item }
+
+];
+
+const router = new VueRouter({
+  routes:routes
 });
+
+const app = new Vue({
+	router,
+	data:{
+
+	}
+}).$mount('#app');
+

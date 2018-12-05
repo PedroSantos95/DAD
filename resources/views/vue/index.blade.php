@@ -4,34 +4,11 @@
 
 @section('content')
 
-<div class="jumbotron">
-    <h1></h1>
-</div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Department</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-    </tbody>
-</table>
+          <router-link to="/items">Menu</router-link> -           
+          <router-link to="/users">Users</router-link> -
+          <router-link to="/orders">Orders</router-link>
 
-<div class=" alert alert-success">
-    <button type="button" class="close-btn" >&times;</button>
-    <strong></strong>
-</div>
-
-<div class="jumbotron">
-    <h2>Edit User</h2>
-
-</div>
-
+          <router-view> </router-view>
 
 @endsection
 @section('pagescript')

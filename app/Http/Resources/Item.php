@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class Item extends Resource
 {
+
+    
     /**
      * Transform the resource into an array.
      *
