@@ -21,6 +21,7 @@ Route::get('users', 'UserControllerAPI@index');
 
 Route::get('items', 'ItemControllerAPI@getItems');
 
+Route::get('meals', 'MealControllerAPI@getMeals');
 
 /*
 Caso prefiram usar Resource Routes para o user, podem implementar antes as rotas:

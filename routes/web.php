@@ -16,4 +16,6 @@ Route::get('/tictactoe','VueController@tictactoe');
 
 Route::get('/apiItems', 'ItemControllerAPI@getItems');
 
+Route::get('/apiMeals', 'MealControllerAPI@getMeals');
+
 Route::get('/users', 'UserController@index');
