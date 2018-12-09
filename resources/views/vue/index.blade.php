@@ -13,4 +13,4 @@
 @endsection
 @section('pagescript')
 <script src="js/vue.js"></script>
-@stop  
+@stop 

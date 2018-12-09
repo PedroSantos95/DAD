@@ -3,29 +3,30 @@
         <div class="jumbotron">
             <h1>{{ title }}</h1>
         </div>
-       
+        
         <router-link to="/users/add"> <button>Add</button>  </router-link>
-       
-        <user-list :users="users"  @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
- 
+
+        <user-list :users="users" @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
+
         <user-edit :user="currentUser" @user-saved="saveUser"  @user-canceled="cancelEdit" v-if="currentUser"></user-edit>
- 
- 
-    </div>             
+
+
+    </div>              
 </template>
- 
+
 <script type="text/javascript">
    
+    import UserList from './userList.vue';
+    
     export default {
         data: function(){
-            return {
+            return { 
                 title: 'List Users',
-                editingUser: false,
                 showSuccess: false,
                 showFailure: false,
                 successMessage: '',
                 failMessage: '',
-                currentUser: {},
+                currentUser: null,
                 currentUserIndex: -1,
                 users: [],
             };
@@ -34,15 +35,15 @@
              editUser: function(user){
                 this.currentUser = user;
                 this.showSuccess = false;
-               
+                
             },
-            deleteUser: function(user){    
+            deleteUser: function(user){     
                  axios.delete('api/users/', {params:{id:user.id}})
                     .then(response => {
                         this.showSuccess = true;
                         this.successMessage = 'User Deleted';
-                        this.getUsers();                       
-                    });
+                        this.getUsers();                        
+                    }); 
             },
             saveUser: function(){
                 this.currentUser = null;
@@ -56,25 +57,44 @@
             },
             getUsers: function(){
                 axios.get('api/users')
-                    .then(response=>{this.users = response.data; });
+                    .then(response=>{
+
+                        this.users = response.data;
+                        
+                    });
             },
             childMessage: function(message){
                 this.showSuccess = true;
                 this.successMessage = message;
-            }
-           
+            },
+            toggleBlockUser: function(user){
+                if (user.blocked === 1) {
+                    this.message = 'User Unbloked';
+                } else {
+                    this.message = 'User Bloked';
+                }
+                axios.post('api/users/block/'+user.id)
+                    .then(response=>{
+                        // Copy object properties from response.data.data to this.user
+                        // without creating a new reference
+                        Object.assign(user, response.data.data);
+                        this.$emit('update-view',user);
+                        this.$emit('message', this.message)
+                    });
+                
+            },
+            
+            
         },
         components: {
-        },
-        mounted() {
-            this.getUsers();
-        }
- 
+            'user-list':UserList,
+        }, 
        
+        
     }
 </script>
- 
-<style scoped> 
+
+<style scoped>  
 p {
     font-size: 2em;
     text-align: center;

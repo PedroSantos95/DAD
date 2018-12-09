@@ -14,6 +14,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const user = Vue.component('user', require('./components/user.vue'));
+const userList = Vue.component('user-list', require('./components/userList.vue'));
 
 const item = Vue.component('item', require('./components/item.vue'));
 const itemList = Vue.component('item-list', require('./components/itemList.vue'));
@@ -21,7 +22,7 @@ const itemList = Vue.component('item-list', require('./components/itemList.vue')
 
 const routes = [
   { path: '/', redirect: '/items' },
-  //{ path: '/users', component: user },
+  { path: '/users', component: user },
   { path: '/items', component: item }
 
 ];
@@ -33,7 +34,6 @@ const router = new VueRouter({
 const app = new Vue({
 	router,
 	data:{
-
 	}
 }).$mount('#app');
 

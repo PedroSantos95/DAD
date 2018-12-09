@@ -16,6 +16,7 @@ class UserControllerAPI extends Controller
 {
     public function index(Request $request)
     {
+        return User::all();
         if ($request->has('page')) {
             return UserResource::collection(User::paginate(5));
         } else {

@@ -15,3 +15,5 @@ Route::get('/','VueController@index');
 Route::get('/tictactoe','VueController@tictactoe');
 
 Route::get('/apiItems', 'ItemControllerAPI@getItems');
+
+Route::get('/users', 'UserController@index');

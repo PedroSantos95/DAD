@@ -29,7 +29,7 @@
         	getProfilePhoto(photo_url){
         		return `img/items/${photo_url}`;
         	}
-        },		
+        },
 	}
 </script>
 
