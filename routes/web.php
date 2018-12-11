@@ -19,3 +19,5 @@ Route::get('/apiItems', 'ItemControllerAPI@getItems');
 Route::get('/apiMeals', 'MealControllerAPI@getMeals');
 
 Route::get('/users', 'UserController@index');
+
+Route::get('/apiUsers', 'UserControllerAPI@getUsers');

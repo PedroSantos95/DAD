@@ -36,6 +36,11 @@ class UserControllerAPI extends Controller
         return new UserResource(User::find($id));
     }
 
+    public function getUsers(Request $request)
+    {
+       return UserResource::collection(User::all());
+    }
+
     public function store(Request $request)
     {
         $request->validate([
