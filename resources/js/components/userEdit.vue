@@ -8,6 +8,15 @@
 	            name="name" id="inputName" 
 	            placeholder="Fullname"/>
 	    </div>
+
+		<div class="form-group">
+	        <label for="inputPassowrd">Password</label>
+	        <input
+	            type="text" class="form-control" v-model="user.password"
+	            name="password" id="inputPassowrd" 
+	            placeholder="Password"/>
+	    </div>
+
 	    <div class="form-group">
 	        <label for="inputEmail">Email</label>
 	        <input
