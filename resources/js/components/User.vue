@@ -4,11 +4,13 @@
             <h1>{{ title }}</h1>
         </div>
         
-        <router-link to="/users/add"> <button>Add</button>  </router-link>
-
-        <user-list :users="users" @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
+        
+        <!--<router-link to="/users/add"> <button>Add</button>  </router-link>
 
         <user-edit :user="currentUser" @user-saved="saveUser"  @user-canceled="cancelEdit" v-if="currentUser"></user-edit>
+        -->
+
+        <user-list :users="users" @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
 
 
     </div>              

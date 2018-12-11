@@ -13,7 +13,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-const user = Vue.component('user', require('./components/user.vue'));
+const user = Vue.component('user', require('./components/User.vue'));
 const userList = Vue.component('user-list', require('./components/userList.vue'));
 
 const item = Vue.component('item', require('./components/item.vue'));

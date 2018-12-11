@@ -26,7 +26,6 @@
 	module.exports={
         props: ['meals'],
         mounted(){
-            console.log("OLA");
         }
 	}
 </script>

@@ -1,9 +1,13 @@
 <template>
 	<div class="container" id="people">
+		<!--
 		<div class="filter">
+			
 		<label><input type="radio" v-model="selectedCategory" value="All" /> All</label>
 		<label><input type="radio" v-model="selectedCategory" value="Blocked" /> Blocked</label>
+		
 		</div>
+		-->
 
 	<table class="table table-striped">
 	    <thead>
@@ -16,13 +20,12 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <tr v-for="user in users"  :key="user.id" :class="{activerow: editingUser === user}">
+	        <tr v-for="user in users"  :key="user.id">
 	            <td>{{ user.name }}</td>
 	            <td>{{ user.email }}</td>
-	            <td>{{ user.age }}</td>
 	            <td ><img width="100px" :src="getProfileImage(user.photo_url)"></td>
 				<td>
-					<button @click="editUser(user)">edit</button>
+					<!-- <button @click="editUser(user)">edit</button> -->
                    <!-- <button @click="deleteUser(user)">Delete</button>
 	        		<a :class="user.blocked ?  'btn btn-xs btn-success' : 'btn btn-xs btn-warning'"  @click.prevent="toggleBlockUser(user)" 
                     v-text="user.blocked ?  'UnBlock' : 'Block'" :id="user.id"></a>-->
