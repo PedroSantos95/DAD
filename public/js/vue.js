@@ -50475,7 +50475,7 @@ module.exports = {
 			this.$emit('edit-click', user);
 		},
 		getProfileImage: function getProfileImage(photo_url) {
-			return "storage/profiles/" + photo_url;
+			return "img/profiles/" + photo_url;
 		},
 
 		deleteUser: function deleteUser(user) {

@@ -59,7 +59,7 @@
                 this.$emit('edit-click', user);
             },		
             getProfileImage(photo_url) {
-      			return `storage/profiles/${photo_url}`;
+      			return `img/profiles/${photo_url}`;
 			},
 			deleteUser: function(user){
 				 this.$emit('delete-click', user);
