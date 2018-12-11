@@ -14,7 +14,6 @@
 	        <tr>
 	            <th>Name</th>
 	            <th>Email</th>
-	            <th>Age</th>
 	            <th>Photo</th>
 	            <th>Actions</th>
 	        </tr>
@@ -40,6 +39,9 @@
 	// Component code (not registered)
 	module.exports={
 		props: ["users"],
+		mounted(){
+			
+        },
 		data: function(){
 			return{
 				selectedCategory:'',
@@ -49,6 +51,9 @@
 		},
 
         methods: {
+			teste: function(){
+				console.log("OLA")
+			},
             editUser: function(user){
                 this.editingUser = user;
                 this.$emit('edit-click', user);
@@ -61,9 +66,9 @@
 			},
 			toggleBlockUser: function(user){
                 if (user.blocked === 1) {
-					this.message = 'User Unbloked';
+					this.message = 'User Unblocked';
                 } else {
-                    this.message = 'User Bloked';
+                    this.message = 'User Blocked';
                 }
                 axios.post('api/users/block/'+user.id)
                     .then(response=>{
@@ -81,6 +86,7 @@
 		},
 		computed:{
 			filteredUsers: function() {
+				console.log("OLA2")
 				var category = this.selectedCategory;
 				if(category === "All") {
 					console.log(this.users);

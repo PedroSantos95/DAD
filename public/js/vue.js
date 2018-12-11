@@ -50452,11 +50452,12 @@ exports.push([module.i, "\ntr.activerow[data-v-32d347d4] {\n  \t\tbackground: #1
 //
 //
 //
-//
 
 // Component code (not registered)
 module.exports = {
 	props: ["users"],
+	mounted: function mounted() {},
+
 	data: function data() {
 		return {
 			selectedCategory: '',
@@ -50466,12 +50467,15 @@ module.exports = {
 	},
 
 	methods: {
+		teste: function teste() {
+			console.log("OLA");
+		},
 		editUser: function editUser(user) {
 			this.editingUser = user;
 			this.$emit('edit-click', user);
 		},
 		getProfileImage: function getProfileImage(photo_url) {
-			return 'storage/profiles/' + photo_url;
+			return "storage/profiles/" + photo_url;
 		},
 
 		deleteUser: function deleteUser(user) {
@@ -50481,9 +50485,9 @@ module.exports = {
 			var _this = this;
 
 			if (user.blocked === 1) {
-				this.message = 'User Unbloked';
+				this.message = 'User Unblocked';
 			} else {
-				this.message = 'User Bloked';
+				this.message = 'User Blocked';
 			}
 			axios.post('api/users/block/' + user.id).then(function (response) {
 				// Copy object properties from response.data.data to this.user
@@ -50498,6 +50502,7 @@ module.exports = {
 	},
 	computed: {
 		filteredUsers: function filteredUsers() {
+			console.log("OLA2");
 			var category = this.selectedCategory;
 			if (category === "All") {
 				console.log(this.users);
@@ -50562,8 +50567,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Age")]),
         _vm._v(" "),
         _c("th", [_vm._v("Photo")]),
         _vm._v(" "),
@@ -52323,6 +52326,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
     },
+    mounted: function mounted() {
+        this.getUsers();
+    },
+
     components: {
         'user-list': __WEBPACK_IMPORTED_MODULE_0__userList_vue___default.a
     }

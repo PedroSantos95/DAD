@@ -88,6 +88,9 @@
             
             
         },
+        mounted(){
+	    	this.getUsers();
+        },
         components: {
             'user-list':UserList,
         }, 
