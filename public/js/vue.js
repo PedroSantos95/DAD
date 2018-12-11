@@ -50550,7 +50550,47 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("td")
+            _c("td", [
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.editUser(user)
+                    }
+                  }
+                },
+                [_vm._v("edit")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.deleteUser(user)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              ),
+              _vm._v(" "),
+              _c("a", {
+                class: user.blocked
+                  ? "btn btn-xs btn-success"
+                  : "btn btn-xs btn-warning",
+                attrs: { id: user.id },
+                domProps: {
+                  textContent: _vm._s(user.blocked ? "UnBlock" : "Block")
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.toggleBlockUser(user)
+                  }
+                }
+              })
+            ])
           ])
         })
       )
