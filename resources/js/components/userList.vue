@@ -24,7 +24,7 @@
 	            <td>{{ user.email }}</td>
 	            <td ><img width="100px" :src="getProfileImage(user.photo_url)"></td>
 				<td>
-					<button @click="editUser(user)">edit</button> 
+					<button v-on:click.prevent="editUser(user)">edit</button> 
                     <button @click="deleteUser(user)">Delete</button>
 	        		<a :class="user.blocked ?  'btn btn-xs btn-success' : 'btn btn-xs btn-warning'"  @click.prevent="toggleBlockUser(user)" 
                     v-text="user.blocked ?  'UnBlock' : 'Block'" :id="user.id"></a>

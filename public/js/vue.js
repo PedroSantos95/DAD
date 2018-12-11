@@ -50556,6 +50556,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       _vm.editUser(user)
                     }
                   }
