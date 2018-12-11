@@ -22,12 +22,19 @@ const itemList = Vue.component('item-list', require('./components/itemList.vue')
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealList = Vue.component('meal-list', require('./components/mealList.vue'));
 
+const profile = Vue.component('profile', require('./components/profile.vue'));
+const login = Vue.component('login', require('./components/login.vue'));
+const logout = Vue.component('logout', require('./components/logout.vue'));
+
 
 const routes = [
   { path: '/', redirect: '/items' },
   { path: '/users', component: user },
   { path: '/items', component: item },
-  { path: '/orders', component: meal }
+  { path: '/orders', component: meal },
+  { path: '/profile', component: profile, name: 'profile'},
+  { path: '/login', component: login, name: 'login'},
+  { path: '/logout', component: logout, name: 'logout'},
 
 ];
 
