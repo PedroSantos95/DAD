@@ -13,6 +13,8 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+import store from './stores/global-store';
+
 const user = Vue.component('user', require('./components/User.vue'));
 const userList = Vue.component('user-list', require('./components/userList.vue'));
 
@@ -43,7 +45,8 @@ const router = new VueRouter({
 });
 
 const app = new Vue({
-	router,
+  router,
+  store,
 	data:{
 	}
 }).$mount('#app');
