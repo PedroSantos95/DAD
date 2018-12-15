@@ -4,7 +4,6 @@
             <h1>{{ title }}</h1>
         </div>
         
-       
         <router-link to="/users/new/user"> <button>Add</button></router-link>
 
         <user-edit :user="currentUser" @user-saved="saveUser"  @user-canceled="cancelEdit" v-if="currentUser"></user-edit>

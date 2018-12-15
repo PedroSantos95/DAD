@@ -31,8 +31,9 @@ Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::middleware('auth:api')->post('logout', 'LoginControllerAPI@logout');
 
 
-
 Route::get('items', 'ItemControllerAPI@getItems');
+Route::put('items', 'ItemControllerAPI@edit');
+Route::delete('items', 'ItemControllerAPI@destroy');
 
 
 Route::get('meals', 'MealControllerAPI@getMeals');

@@ -21,6 +21,8 @@ const userAdd = Vue.component('user-add', require('./components/userAdd.vue'));
 
 const item = Vue.component('item', require('./components/item.vue'));
 const itemList = Vue.component('item-list', require('./components/itemList.vue'));
+const itemEdit = Vue.component('item-edit', require('./components/itemEdit.vue'));
+const itemAdd = Vue.component('item-add', require('./components/itemAdd.vue'));
 
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealList = Vue.component('meal-list', require('./components/mealList.vue'));
@@ -39,6 +41,8 @@ const routes = [
   { path: '/users/new/user', component: userAdd},
 
   { path: '/items', component: item },
+  { path: '/items/new/item', component: itemAdd },
+  { path: '/items/:id', component: itemEdit },
 
   { path: '/orders', component: meal },
   { path: '/profile', component: profile, name: 'profile'},
