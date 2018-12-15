@@ -53309,7 +53309,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53354,27 +53354,38 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 module.exports = {
 	props: ['item'],
 	data: function data() {
-		return {};
+		return {
+			selectedItem: Object.assign({}, this.item)
+		};
 	},
 
 	methods: {
-
 		saveItem: function saveItem() {
 			var _this = this;
 
-			axios.put('api/items/' + this.item.id, this.item).then(function (response) {
+			axios.put('api/items/' + this.item.id, this.selectedItem).then(function (response) {
 				Object.assign(_this.item, response.data.data);
 				_this.$emit('item-saved', _this.item);
 			});
 		},
 
 		cancelEdit: function cancelEdit() {
-			var _this2 = this;
 
-			axios.get('api/items/' + this.item.id).then(function (response) {
-				Object.assign(_this2.item, response.data.data);
-				_this2.$emit('item-canceled', _this2.item);
-			});
+			this.$emit('item-canceled', this.selectedItem);
+			/*
+   axios.get('api/items/'+this.item.id)
+          .then(response=>{
+          	Object.assign(this.item, response.data.data);
+          	this.$emit('item-canceled', this.item);
+          });
+   		*/
+			this.selectedItem;
+		}
+	},
+	watch: {
+		item: function item(value) {
+			console.log(value);
+			this.selectedItem = Object.assign({}, value);
 		}
 	}
 };
@@ -53398,19 +53409,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.item.type,
-            expression: "item.type"
+            value: _vm.selectedItem.type,
+            expression: "selectedItem.type"
           }
         ],
         staticClass: "form-control",
         attrs: { type: "text", name: "type", id: "inputType" },
-        domProps: { value: _vm.item.type },
+        domProps: { value: _vm.selectedItem.type },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.item, "type", $event.target.value)
+            _vm.$set(_vm.selectedItem, "type", $event.target.value)
           }
         }
       })
@@ -53424,8 +53435,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.item.description,
-            expression: "item.description"
+            value: _vm.selectedItem.description,
+            expression: "selectedItem.description"
           }
         ],
         staticClass: "form-control",
@@ -53435,13 +53446,13 @@ var render = function() {
           id: "inputDescription",
           placeholder: "Description"
         },
-        domProps: { value: _vm.item.description },
+        domProps: { value: _vm.selectedItem.description },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.item, "description", $event.target.value)
+            _vm.$set(_vm.selectedItem, "description", $event.target.value)
           }
         }
       })
@@ -53455,8 +53466,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.item.price,
-            expression: "item.price"
+            value: _vm.selectedItem.price,
+            expression: "selectedItem.price"
           }
         ],
         staticClass: "form-control",
@@ -53466,13 +53477,13 @@ var render = function() {
           id: "inputPrice",
           placeholder: "Price"
         },
-        domProps: { value: _vm.item.price },
+        domProps: { value: _vm.selectedItem.price },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.item, "price", $event.target.value)
+            _vm.$set(_vm.selectedItem, "price", $event.target.value)
           }
         }
       })
@@ -53655,6 +53666,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 // Component code (not registered)
@@ -53794,10 +53808,11 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.form.type,
-              expression: "form.type"
+              value: _vm.item.type,
+              expression: "item.type"
             }
           ],
+          staticClass: "col-6",
           on: {
             change: function($event) {
               var $$selectedVal = Array.prototype.filter
@@ -53809,7 +53824,7 @@ var render = function() {
                   return val
                 })
               _vm.$set(
-                _vm.form,
+                _vm.item,
                 "type",
                 $event.target.multiple ? $$selectedVal : $$selectedVal[0]
               )
@@ -53827,10 +53842,12 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _c(
         "a",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-primary pull-right",
           on: {
             click: function($event) {
               $event.preventDefault()

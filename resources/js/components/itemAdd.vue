@@ -21,14 +21,17 @@
                     type="text" class="form-control" v-model="item.description"
                     name="name" id="name"/>
             </div>
-            <select v-model="form.type">
+            <select v-model="item.type" class="col-6">
                 <label for="username">Type</label>
                 <option>Dish</option>
                 <option>Drink</option>
             </select>
 
             <br>
-        <a class="btn btn-primary" v-on:click.prevent="AddItem()">Add</a>
+            <br>
+
+        
+        <a class="btn btn-primary pull-right" v-on:click.prevent="AddItem()">Add</a>
         <a class="btn btn-danger" v-on:click.prevent="cancelAdd()">Cancel</a>
         </form>
 

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Http\Resources\Notifiable\Notifiable;
+use Illuminate\Contracts\Support\Jsonable;
 
 
 use App\Http\Resources\Item as ItemResource;
+use Illuminate\Support\Facades\DB;
 
-use Notification;
 use App\Item;
+use App\StoreItemRequest;
+use Hash;
+
 
 
 
@@ -34,7 +36,7 @@ class ItemControllerAPI extends Controller
         return response()->json(new ItemResource($item), 201);
     }
     
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $item = Item::findOrFail($id);
         $item->update($request->all());
