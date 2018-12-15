@@ -50502,7 +50502,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -51304,38 +51303,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // Component code (not registered)
 /* harmony default export */ __webpack_exports__["default"] = ({
-         data: function data() {
-                  return {
-                           user: {
-                                    name: '',
-                                    username: '',
-                                    email: ''
+    data: function data() {
+        return {
+            user: {
+                name: '',
+                username: '',
+                email: '',
+                type: ''
+            }
+        };
+    },
+    methods: {
+        addUser: function addUser() {
+            axios.post('api/users/', this.user).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                return console.log("");
+            });
+        },
 
-                           }
-                  };
-         },
-         methods: {
-                  addUser: function addUser() {
-                           axios.post('api/users/', this.user).then(function (response) {
-                                    console.log(response);
-                           }).catch(function (error) {
-                                    return console.log("");
-                           });
-                  },
+        cancelAdd: function cancelAdd() {
+            var _this = this;
 
-                  cancelAdd: function cancelAdd() {
-                           var _this = this;
+            axios.get('api/users/' + this.user.id).then(function (response) {
+                Object.assign(_this.user, response.data.data);
+                _this.$emit('user-canceled', _this.user);
+            });
+        },
 
-                           axios.get('api/users/' + this.user.id).then(function (response) {
-                                    Object.assign(_this.user, response.data.data);
-                                    _this.$emit('user-canceled', _this.user);
-                           });
-                  },
-
-                  getProfileImage: function getProfileImage(photo_url) {
-                           return 'storage/profiles/' + photo_url;
-                  }
-         }
+        getProfileImage: function getProfileImage(photo_url) {
+            return 'storage/profiles/' + photo_url;
+        }
+    }
 
 });
 
