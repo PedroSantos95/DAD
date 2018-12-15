@@ -31,19 +31,30 @@ class UserControllerAPI extends Controller
         }*/
     }
 
+    public function add(Request $request) {
+        $user = new User();
+        $user->fill($request->all());
+        $user->save();
+        return response()->json($user, 200);
+    }
+
     public function show($id)
     {
         return new UserResource(User::find($id));
     }
 
-    public function store(Request $request)
+    public function getUsers(Request $request)
     {
-        $request->validate([
+       return UserResource::collection(User::all());
+    }
+
+   public function store(Request $request)
+    {
+       /* $request->validate([
                 'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
                 'email' => 'required|email|unique:users,email',
-                'age' => 'integer|between:18,75',
                 'password' => 'min:3'
-            ]);
+            ]);*/
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
@@ -51,12 +62,12 @@ class UserControllerAPI extends Controller
         return response()->json(new UserResource($user), 201);
     }
 
+
     public function update(Request $request, $id)
     {
         $request->validate([
                 'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
-                'email' => 'required|email|unique:users,email,'.$id,
-                'age' => 'integer|between:18,75'
+                'email' => 'required|email|unique:users,email,'.$id
             ]);
         $user = User::findOrFail($id);
         $user->update($request->all());
@@ -64,11 +75,14 @@ class UserControllerAPI extends Controller
     }
 
     public function destroy($id)
-    {
+    { 
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(null, 204);
     }
+
+    
+
     public function emailAvailable(Request $request)
     {
         $totalEmail = 1;
@@ -78,5 +92,10 @@ class UserControllerAPI extends Controller
             $totalEmail = DB::table('users')->where('email', '=', $request->email)->count();
         }
         return response()->json($totalEmail == 0);
+    }
+    
+    public function myProfile(Request $request)
+    {
+        return new UserResource($request->user());
     }
 }

@@ -1,31 +1,33 @@
 <template>
 	<div class="container" id="people">
+		<!--
 		<div class="filter">
+			
 		<label><input type="radio" v-model="selectedCategory" value="All" /> All</label>
 		<label><input type="radio" v-model="selectedCategory" value="Blocked" /> Blocked</label>
+		
 		</div>
+		-->
 
 	<table class="table table-striped">
 	    <thead>
 	        <tr>
 	            <th>Name</th>
 	            <th>Email</th>
-	            <th>Age</th>
 	            <th>Photo</th>
 	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <tr v-for="user in users"  :key="user.id" :class="{activerow: editingUser === user}">
+	        <tr v-for="user in users"  :key="user.id">
 	            <td>{{ user.name }}</td>
 	            <td>{{ user.email }}</td>
-	            <td>{{ user.age }}</td>
-	            <td ><img width="100px" :src="getProfileImage(user.photo_url)"></td>
+	            <!--<td ><img width="100px" :src="getProfileImage(user.photo_url)"></td>-->
 				<td>
-					<button @click="editUser(user)">edit</button>
-                   <!-- <button @click="deleteUser(user)">Delete</button>
+					<a class="btn btn-xs btn-primary" v-on:click.prevent="editUser(user)">Edit</a>
+	                <a class="btn btn-xs btn-danger" v-on:click.prevent="deleteUser(user)">Delete</a>
 	        		<a :class="user.blocked ?  'btn btn-xs btn-success' : 'btn btn-xs btn-warning'"  @click.prevent="toggleBlockUser(user)" 
-                    v-text="user.blocked ?  'UnBlock' : 'Block'" :id="user.id"></a>-->
+                    v-text="user.blocked ?  'UnBlock' : 'Block'" :id="user.id"></a>
 	            </td>
 			</tr>
 	    </tbody>
@@ -41,7 +43,6 @@
 			return{
 				selectedCategory:'',
 				editingUser:null,
-				
 			};			
 		},
 
@@ -50,17 +51,19 @@
                 this.editingUser = user;
                 this.$emit('edit-click', user);
             },		
-            getProfileImage(photo_url) {
-      			return `storage/profiles/${photo_url}`;
-			},
+            
+          /*  getProfileImage(photo_url) {
+      			return `img/profiles/${photo_url}`;
+			},*/
+
 			deleteUser: function(user){
-				 this.$emit('delete-click', user);
+                this.$emit('delete-click', user);
 			},
 			toggleBlockUser: function(user){
                 if (user.blocked === 1) {
-					this.message = 'User Unbloked';
+					this.message = 'User Unblocked';
                 } else {
-                    this.message = 'User Bloked';
+                    this.message = 'User Blocked';
                 }
                 axios.post('api/users/block/'+user.id)
                     .then(response=>{
@@ -78,6 +81,7 @@
 		},
 		computed:{
 			filteredUsers: function() {
+				console.log("OLA2")
 				var category = this.selectedCategory;
 				if(category === "All") {
 					console.log(this.users);

@@ -4,7 +4,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Invoice extends Model
 {
      use Notifiable;
 
@@ -14,9 +14,13 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'name', 
-        'type',
+        'name',
+        'nif',
     ];
+
+
+    public function meal(){
+        return $this->belongsTo('App\Meal');
+    }
 
 }

@@ -4,11 +4,12 @@
             <h1>{{ title }}</h1>
         </div>
         
-        <router-link to="/users/add"> <button>Add</button>  </router-link>
-
-        <user-list :users="users" @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
+       
+        <router-link to="/users/new/user"> <button>Add</button></router-link>
 
         <user-edit :user="currentUser" @user-saved="saveUser"  @user-canceled="cancelEdit" v-if="currentUser"></user-edit>
+        
+        <user-list :users="users" @delete-click="deleteUser" ref="usersListRef" @edit-click="editUser"></user-list>
 
 
     </div>              
@@ -17,6 +18,7 @@
 <script type="text/javascript">
    
     import UserList from './userList.vue';
+    import UserEdit from './userEdit.vue';
     
     export default {
         data: function(){
@@ -38,7 +40,7 @@
                 
             },
             deleteUser: function(user){     
-                 axios.delete('api/users/', {params:{id:user.id}})
+                 axios.delete('api/users/' + user.id)
                     .then(response => {
                         this.showSuccess = true;
                         this.successMessage = 'User Deleted';
@@ -54,14 +56,11 @@
             cancelEdit: function(){
                 this.currentUser = null;
                 this.$refs.usersListRef.editingUser = null;
+                this.showSuccess = false;
             },
             getUsers: function(){
                 axios.get('api/users')
-                    .then(response=>{
-
-                        this.users = response.data;
-                        
-                    });
+                    .then(response=>{this.users = response.data; });
             },
             childMessage: function(message){
                 this.showSuccess = true;
@@ -86,8 +85,12 @@
             
             
         },
+        mounted(){
+	    	this.getUsers();
+        },
         components: {
-            'user-list':UserList,
+            'user-list': UserList,
+            'user-edit': UserEdit
         }, 
        
         
