@@ -1,85 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
-
-
-use Illuminate\Http\Request;
-use App\Http\Resources\Notifiable\Notifiable;
-
-
-use App\Http\Resources\Invoice as InvoiceResource;
-
-use Notification;
 use App\Invoice;
-
-
+use App\Meals;
+use Illuminate\Http\Request;
+use App\Http\Resources\Invoice as InvoiceResource;
+use DB;
 class InvoiceControllerAPI extends Controller
 {
+
     public function getInvoices(Request $request)
     {
-       return new Collection(Invoices::with('meals')->get());
+        $invoices = DB::table('invoices')
+            ->join('meals', 'invoices.meal_id', '=', 'meals.id')
+            ->select('invoices.name', 'invoices.meal_id', 'invoices.total_price', 'meals.table_number','invoices.date','invoices.id') ->get();
+        return $invoices;
     }
 
+    public function showInvoice(Request $request, $id){
+        $items = Invoice::findOrFail($id);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $items = DB::table('invoice_items')
+            ->join('items', 'invoice_items.item_id', '=', 'items.id')
+            ->select('invoice_items.quantity', 'invoice_items.unit_price', 'invoice_items.sub_total_price', 'items.name')
+            ->where('invoice_items.invoice_id', $id)->get();
+         return $items;
     }
 
 }

@@ -14,7 +14,7 @@
 	export default {
 		data: function(){
 			return { 
-		        title: 'List Orders',
+		        title: 'List Melals',
 		        meals: []
 			}
 		},

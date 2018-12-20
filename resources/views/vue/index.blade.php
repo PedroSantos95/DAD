@@ -10,7 +10,6 @@
           <router-link to="/profile">Profile</router-link> -
           <router-link to="/login">Login</router-link> -
           <router-link to="/logout">Logout</router-link> -
-
           <router-link to="/invoices">Invoices</router-link>
 
           <router-view> </router-view>

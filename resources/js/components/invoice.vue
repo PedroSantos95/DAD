@@ -1,43 +1,74 @@
 <template>
-	<div>
-		<div class="jumbotron">
-			<h1>{{ title }}</h1>
-		</div>
 
-		<invoice-list :invoices="invoices" ref="invoicesListRef" ></invoice-list>
+    <div>
+        <div class="jumbotron">
+            <h1>{{ title }}</h1>
+        </div>
+        <div>
+            <invoice-show :invoice="currentInvoice" :items="items" v-if="currentInvoice" ></invoice-show>
+            <invoice-list :invoices="invoices"  @show-click="showInvoice"></invoice-list>
+        </div>
+    </div>
 
-		</div>							
 </template>
 
 <script type="text/javascript">
 
-	export default {
-		data: function(){
-			return { 
-		        title: 'List of "Pending" Invoices',
-                invoices: [],
+    import InvoiceList from './invoiceList.vue';
+    import InvoiceShow from './invoiceShow.vue';
+
+    export default {
+        data: function () {
+            return {
+                title: 'List invoice',
+                showingInvoice: false,
+                currentInvoice: null,
                 showSuccess: false,
                 showFailure: false,
-                failMessage: '',
                 successMessage: '',
-			}
-		},
-	    methods: {
-	       getPendingInvoices: function(){
-	            axios.get('api/invoices')
-	                .then(response=>{this.invoices  = response.data.data;});
-			},
-	    },
-	    mounted(){
-	    	this.getPendingInvoices();
-	    }
-
-	}
+                failMessage: '',
+                currentInvoiceIndex: -1,
+                invoices: [],
+                items:[]
+            }
+        },
+        methods: {
+            getInvoices: function () {
+                axios.get('api/invoices')
+                    .then(response => {
+                        this.invoices = response.data;
+                    }); // ver a estrutura do json
+            },
+            showInvoice: function (invoice) {
+                this.currentInvoice = invoice;
+                this.showSuccess = false;
+                axios.get('api/invoices/'+ invoice.id)
+                    .then(response => {
+                        this.items=response.data;
+                        console.log(response);
+                    });
+            },
+            saveUser: function(){
+                this.currentUser = null;
+                this.$refs.usersListRef.editingUser = null;
+                this.showSuccess = true;
+                this.successMessage = 'User Saved';
+                this.$socket.emit('user_changed', savedUser)
+            },
+        },
+        components: {
+            'invoice-list': InvoiceList,
+            'invoice-show': InvoiceShow,
+        },
+        mounted() {
+            this.getInvoices();
+        }
+    }
 </script>
 
-<style scoped>	
-p {
-	font-size: 2em;
-	text-align: center;
-}
+<style scoped>
+    p {
+        font-size: 2em;
+        text-align: center;
+    }
 </style>

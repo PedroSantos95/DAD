@@ -21,26 +21,22 @@ Route::get('users', 'UserControllerAPI@index');
 Route::post('users', 'UserControllerAPI@add');
 Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
 Route::get('users/{id}', 'UserControllerAPI@show');
-
 Route::post('users', 'UserControllerAPI@store');
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
 
-
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::middleware('auth:api')->post('logout', 'LoginControllerAPI@logout');
-
 
 Route::get('items', 'ItemControllerAPI@getItems');
 Route::put('items/{id}', 'ItemControllerAPI@edit');
 Route::post('items', 'ItemControllerAPI@add');
 Route::delete('items/{id}', 'ItemControllerAPI@destroy');
 
-
 Route::get('meals', 'MealControllerAPI@getMeals');
 
-
 Route::get('invoices', 'InvoiceControllerAPI@getInvoices');
+Route::get('invoices/{id}', 'InvoiceControllerAPI@showInvoice');
 
 /*
 
