@@ -21,3 +21,5 @@ Route::get('/apiMeals', 'MealControllerAPI@getMeals');
 Route::get('/users', 'UserController@index');
 
 Route::get('/apiUsers', 'UserControllerAPI@getUsers');
+
+Route::get('/apiOrders', 'OrderControllerAPI@getOrders');
