@@ -53291,7 +53291,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.get('api/orders').then(function (response) {
-				_this.order = response.data.data;
+				_this.orders = response.data.data;
 			});
 		}
 
@@ -53452,7 +53452,7 @@ exports.push([module.i, "\ntr.activerow[data-v-8a412d5e] {\n  \t\tbackground: #1
 
 // Component code (not registered)
 module.exports = {
-       props: ['order'],
+       props: ['orders'],
        mounted: function mounted() {}
 };
 

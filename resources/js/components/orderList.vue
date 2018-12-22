@@ -24,7 +24,7 @@
 <script type="text/javascript">
 	// Component code (not registered)
 	module.exports={
-        props: ['order'],
+        props: ['orders'],
         mounted(){
         }
 	}

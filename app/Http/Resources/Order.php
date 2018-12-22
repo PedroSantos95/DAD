@@ -18,6 +18,7 @@ class Order extends Resource
     {
         return [
             'id' => $this->id,
+            'state' => $this->state,
             'item_id' => $this->item_id,
             'meal_id' => $this->meal_id,
             'responsible_cook_id' => $this->responsible_cook_id,
