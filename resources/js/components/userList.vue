@@ -22,7 +22,7 @@
 	        <tr v-for="user in users"  :key="user.id">
 	            <td>{{ user.name }}</td>
 	            <td>{{ user.email }}</td>
-	            <!--<td ><img width="100px" :src="getProfileImage(user.photo_url)"></td>-->
+	            <td><img width="100px" :src="getProfileImage(user.photo_url)"></td>
 				<td>
 					<a class="btn btn-xs btn-primary" v-on:click.prevent="editUser(user)">Edit</a>
 	                <a class="btn btn-xs btn-danger" v-on:click.prevent="deleteUser(user)">Delete</a>
@@ -52,9 +52,9 @@
                 this.$emit('edit-click', user);
             },		
             
-          /*  getProfileImage(photo_url) {
+            getProfileImage(photo_url) {
       			return `img/profiles/${photo_url}`;
-			},*/
+			},
 
 			deleteUser: function(user){
                 this.$emit('delete-click', user);
@@ -81,7 +81,6 @@
 		},
 		computed:{
 			filteredUsers: function() {
-				console.log("OLA2")
 				var category = this.selectedCategory;
 				if(category === "All") {
 					console.log(this.users);
