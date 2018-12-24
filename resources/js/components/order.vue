@@ -21,7 +21,7 @@
 	    methods: {
 	        getOrders: function(){
 	            axios.get('api/orders')
-	                .then(response=>{this.orders = response.data.data;});
+	                .then(response=>{this.order = response.data.data;});
 			},
 			
 	    },

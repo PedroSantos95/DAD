@@ -53291,7 +53291,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.get('api/orders').then(function (response) {
-				_this.orders = response.data.data;
+				_this.order = response.data.data;
 			});
 		}
 
@@ -53452,7 +53452,7 @@ exports.push([module.i, "\ntr.activerow[data-v-8a412d5e] {\n  \t\tbackground: #1
 
 // Component code (not registered)
 module.exports = {
-       props: ['orders'],
+       props: ['order'],
        mounted: function mounted() {}
 };
 
@@ -54194,7 +54194,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.get('api/invoices').then(function (response) {
-                _this.invoices = response.data;
+                _this.invoices = response.data.data;
             }); // ver a estrutura do json
         },
         showInvoice: function showInvoice(invoice) {
@@ -54308,7 +54308,7 @@ module.exports = {
     data: function data() {
         return {
             showingInvoice: null,
-            selectedCategory: ''
+            selectedCategory: 'Pending'
         };
     },
     methods: {
@@ -54405,11 +54405,11 @@ var render = function() {
             [
               _c("td", [_vm._v(_vm._s(invoice.name))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(invoice.meal_id))]),
-              _vm._v(" "),
               _c("td", [_vm._v(_vm._s(invoice.total_price))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(invoice.table_number))]),
+              _c("td", [_vm._v(_vm._s(invoice.meal.table_number))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(invoice.meal.responsible_waiter))]),
               _vm._v(" "),
               _c("td", [
                 _c(
@@ -54440,11 +54440,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Meal-ID")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Total-Price")]),
         _vm._v(" "),
         _c("th", [_vm._v("Table-Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Waiter")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
@@ -54495,7 +54495,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54504,6 +54504,25 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /* 125 */
 /***/ (function(module, exports) {
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54558,23 +54577,59 @@ var render = function() {
     _c("div", { staticClass: "form-group" }, [
       _c("label", [_vm._v("Table Number:")]),
       _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm.invoice.table_number) + " ")])
+      _c("span", [_vm._v(_vm._s(_vm.invoice.meal.table_number) + " ")])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", [_vm._v("Name Responsible Waiter:")]),
       _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm.invoice.name) + " ")])
+      _c("span", [_vm._v(_vm._s(_vm.invoice.meal.responsible_waiter) + " ")])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", [_vm._v("Total Price:")]),
       _vm._v(" "),
       _c("span", [_vm._v(_vm._s(_vm.invoice.total_price) + " ")])
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-striped" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.items, function(item, index) {
+          return _c("tr", { key: index }, [
+            _c("td", [_vm._v(_vm._s(item.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.quantity))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.unit_price))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.sub_total_price))])
+          ])
+        })
+      )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Produto")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantidade")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sub-total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
