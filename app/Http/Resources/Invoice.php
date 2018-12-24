@@ -14,7 +14,7 @@ class Invoice extends JsonResource
         return [
             'id' =>$this->id,
             'state'=>$this->state,
-            'meal_id'=>$this->meal_id,
+            'meal'=> new Meal($this->meal),
             'nif'=>$this->nif,
             'name'=>$this->name,
             'date'=>$this->date,

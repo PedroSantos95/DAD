@@ -1,54 +1,26 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Invoice;
+use App\Meals;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Support\Jsonable;
-
-
-use App\Http\Resources\Item as ItemResource;
-use Illuminate\Support\Facades\DB;
-
-use App\Item;
-use App\StoreItemRequest;
-use Hash;
-
-
-
-
-class ItemControllerAPI extends Controller
+use App\Http\Resources\Invoice as InvoiceResource;
+use DB;
+class InvoiceControllerAPI extends Controller
 {
-    public function getItems(Request $request)
+ 
+    public function getInvoices(Request $request)
     {
-       return ItemResource::collection(Item::all());
+        return InvoiceResource::collection(Invoice::all());
     }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function add(Request $request) {
-        $item = new Item();
-        $item->fill($request->all());
-        $item->save();
-        return response()->json(new ItemResource($item), 201);
+ 
+    public function showInvoice(Request $request, $id){
+        $items = Invoice::findOrFail($id);
+ 
+        $items = DB::table('invoice_items')
+            ->join('items', 'invoice_items.item_id', '=', 'items.id')
+            ->select('invoice_items.quantity', 'invoice_items.unit_price', 'invoice_items.sub_total_price', 'items.name')
+            ->where('invoice_items.invoice_id', $id)->get();
+         return $items;
     }
-    
-    public function edit(Request $request, $id)
-    {
-        $item = Item::findOrFail($id);
-        $item->update($request->all());
-        return new ItemResource($item);
-    }
-   
-   
-    public function destroy($id)
-    {
-        $item = Item::findOrFail($id);
-        $item->delete();
-        return response()->json(null, 204);
-    }
-
+ 
 }

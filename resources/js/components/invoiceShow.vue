@@ -7,19 +7,38 @@
         </div>
         <div class="form-group">
             <label>Table Number:</label>
-            <span>{{invoice.table_number}} </span>
+            <span>{{invoice.meal.table_number}} </span>
         </div>
         <div class="form-group">
             <label>Name Responsible Waiter:</label>
-            <span>{{invoice.name}} </span>
+            <span>{{invoice.meal.responsible_waiter}} </span>
         </div>
         <div class="form-group">
             <label>Total Price:</label>
             <span>{{invoice.total_price}} </span>
         </div>
+ 
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Sub-total</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in items"  :key="index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unit_price }}</td>
+            <td>{{ item.sub_total_price }}</td>
+        </tr>
+        </tbody>
+    </table>
     </div>
 </template>
-
+ 
 <script type="text/javascript">
         module.exports= {
             props: ['invoice','items'],
@@ -31,6 +50,6 @@
             }
         }
 </script>
-
+ 
 <style scoped>
 </style>

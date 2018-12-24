@@ -7,6 +7,7 @@
           <router-link to="/items">Menu</router-link> -           
           <router-link to="/users">Users</router-link> -
           <router-link to="/orders">Orders</router-link> -
+          <router-link to="/meals">Meals</router-link> -
           <router-link to="/profile">Profile</router-link> -
           <router-link to="/login">Login</router-link> -
           <router-link to="/logout">Logout</router-link> -

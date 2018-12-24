@@ -1,5 +1,5 @@
 <template>
-
+ 
     <div>
         <div class="jumbotron">
             <h1>{{ title }}</h1>
@@ -9,14 +9,14 @@
             <invoice-list :invoices="invoices"  @show-click="showInvoice"></invoice-list>
         </div>
     </div>
-
+ 
 </template>
-
+ 
 <script type="text/javascript">
-
+ 
     import InvoiceList from './invoiceList.vue';
     import InvoiceShow from './invoiceShow.vue';
-
+ 
     export default {
         data: function () {
             return {
@@ -36,7 +36,7 @@
             getInvoices: function () {
                 axios.get('api/invoices')
                     .then(response => {
-                        this.invoices = response.data;
+                        this.invoices = response.data.data;
                     }); // ver a estrutura do json
             },
             showInvoice: function (invoice) {
@@ -65,7 +65,7 @@
         }
     }
 </script>
-
+ 
 <style scoped>
     p {
         font-size: 2em;

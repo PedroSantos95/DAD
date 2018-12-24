@@ -1,13 +1,13 @@
 <?php
- 
+
 namespace App\Http\Resources;
- 
+
 use Illuminate\Http\Resources\Json\Resource;
- 
-class Meal extends Resource
+
+class Order extends Resource
 {
- 
-   
+
+    
     /**
      * Transform the resource into an array.
      *
@@ -18,10 +18,9 @@ class Meal extends Resource
     {
         return [
             'id' => $this->id,
-            'state' => $this->state,
-            'table_number' => $this->table_number,
-            'responsible_waiter' => $this->waiter->name,
-            'total_price_preview' => $this->total_price_preview,
+            'item_id' => $this->item_id,
+            'meal_id' => $this->meal_id,
+            'responsible_cook_id' => $this->responsible_cook_id,
         ];
     }
 }

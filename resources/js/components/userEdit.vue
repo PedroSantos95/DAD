@@ -43,7 +43,7 @@
         props: ['user'],
         data() {
             return {
-                selectedFile: null,
+                selectedFile: "",
                 
             }
         },
@@ -63,15 +63,24 @@
 	                });
             },
             getProfileImage(photo_url) {
-      			return `storage/profiles/${photo_url}`;
+      			return `img/profiles/${photo_url}`;
             },
             onFileSelected(event) {
                 this.selectedFile = event.target.files[0];
             },
             onUpload() {
-                console.log("Here");
+				console.log(this.selectedFile);
+				uploadHandler = () => {
+			  	const formData = new FormData();
+  				formData.append('myFile', this.selectedFile, this.selectedFile.name);
+  				axios.post('http://projetodad.test/#/users/file-upload', formData, {
+   						 onUploadProgress: progressEvent => {
+      									console.log(progressEvent.loaded / progressEvent.total)
+										}
+				})
             }
 		}
+	}
 	}
 </script>
 

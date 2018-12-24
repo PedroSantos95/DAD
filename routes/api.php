@@ -35,6 +35,8 @@ Route::delete('items/{id}', 'ItemControllerAPI@destroy');
 
 Route::get('meals', 'MealControllerAPI@getMeals');
 
+Route::get('orders', 'OrderControllerAPI@getOrders');
+
 Route::get('invoices', 'InvoiceControllerAPI@getInvoices');
 Route::get('invoices/{id}', 'InvoiceControllerAPI@showInvoice');
 

@@ -26,6 +26,9 @@ const itemAdd = Vue.component('item-add', require('./components/itemAdd.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealList = Vue.component('meal-list', require('./components/mealList.vue'));
 
+const order = Vue.component('order', require('./components/order.vue'));
+const orderList = Vue.component('order-list', require('./components/orderList.vue'));
+
 const profile = Vue.component('profile', require('./components/profile.vue'));
 const login = Vue.component('login', require('./components/login.vue'));
 const logout = Vue.component('logout', require('./components/logout.vue'));
@@ -49,6 +52,8 @@ const routes = [
   { path: '/login', component: login, name: 'login'},
   { path: '/logout', component: logout, name: 'logout'},
   
+  { path: '/orders', component: order },
+
   { path: '/invoices', component: invoice },
   { path: '/invoices/:id', component: invoiceShow },
 ];

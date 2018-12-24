@@ -1,16 +1,21 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
-
-class Item extends Model
+ 
+class Invoice extends Model
 {
-    
+   
     protected $fillable = [
         'id',
-        'name', 
+        'name',
         'type',
         'description',
         'photo_url',
         'price',
     ];
+ 
+    public function meal()
+    {
+        return $this->belongsTo('App\Meal');
+    }
 }
