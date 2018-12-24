@@ -14,7 +14,8 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+import cookOrdersList from './components/users/cooks/cookOrdersList.vue';
+Vue.component('cookOrdersList',cookOrdersList);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({

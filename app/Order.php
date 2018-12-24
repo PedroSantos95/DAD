@@ -4,6 +4,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
+use App\User;
+
 class Order extends Model
 {
      use Notifiable;
@@ -20,5 +22,9 @@ class Order extends Model
         'responsible_cook_id',
     ];
 
-
+    public function cookers()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 }

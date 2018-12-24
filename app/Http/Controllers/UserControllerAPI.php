@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Jsonable;
 
 use App\Http\Resources\User as UserResource;
+use App\Http\Resources\Order as OrderResource;
 use Illuminate\Support\Facades\DB;
 
 use App\User;
+use App\Order;
 use App\StoreUserRequest;
 use Hash;
 
@@ -29,6 +31,19 @@ class UserControllerAPI extends Controller
         } else {
             return User::with('department')->get();;
         }*/
+    }
+
+    public function getCookOrdersList($id){
+        $user=User::findOrFail($id);
+        $orders = $user->orders;
+        
+        $orders = $orders->filter(function ($order) {
+            return $order->state == 'confirmed' || $order->state == 'in preparation';
+        });
+        
+        $orders = $orders->sortBy('start')->sortByDesc('state');
+        
+        return OrderResource::collection($orders); 
     }
 
     public function add(Request $request) {
