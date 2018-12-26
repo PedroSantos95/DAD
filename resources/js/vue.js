@@ -18,6 +18,8 @@ const userList = Vue.component('user-list', require('./components/userList.vue')
 const userEdit = Vue.component('user-edit', require('./components/userEdit.vue'));
 const userAdd = Vue.component('user-add', require('./components/userAdd.vue'));
 
+const shift = Vue.component('shift',require('./components/shift.vue'));
+
 const item = Vue.component('item', require('./components/item.vue'));
 const itemList = Vue.component('item-list', require('./components/itemList.vue'));
 const itemEdit = Vue.component('item-edit', require('./components/itemEdit.vue'));
@@ -43,6 +45,8 @@ const routes = [
   { path: '/users/:id', component: userEdit},
   { path: '/users/new/user', component: userAdd},
 
+  {path:'/shift',component:shift ,name:'shift'},
+
   { path: '/items', component: item },
   { path: '/items/new/item', component: itemAdd },
   { path: '/items/:id', component: itemEdit },
@@ -60,6 +64,19 @@ const routes = [
 
 const router = new VueRouter({
   routes:routes
+});
+
+router.beforeEach((to, from, next) => {
+    if ((to.name == 'profile') || (to.name == 'logout')) {
+        store.commit('loadTokenAndUserFromSession');
+        
+        if (!store.state.user) {
+            console.log(store.state.user);
+            next("/login");
+            return;
+        }
+    }
+    next();
 });
 
 const app = new Vue({

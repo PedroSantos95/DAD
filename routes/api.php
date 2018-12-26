@@ -25,6 +25,9 @@ Route::post('users', 'UserControllerAPI@store');
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
 
+Route::post('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
+Route::post('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
+
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::middleware('auth:api')->post('logout', 'LoginControllerAPI@logout');
 

@@ -114,3 +114,4 @@ class UserControllerAPI extends Controller
         return new UserResource($request->user());
     }
 }
+
