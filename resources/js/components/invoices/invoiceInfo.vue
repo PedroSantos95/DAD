@@ -1,30 +1,25 @@
 <template>
     <div class="jumbotron">
         <h2>Invoice Information</h2> <br>
-        <div class="form-group">
-            <label>Date:</label>
+        <div class="form-group"> <label>Date:</label>
             <span>{{invoice.date}} </span>
         </div>
-        <div class="form-group">
-            <label>Table Number:</label>
+        <div class="form-group"> <label>Table Number:</label>
             <span>{{invoice.meal.table_number}} </span>
         </div>
-        <div class="form-group">
-            <label>Name Responsible Waiter:</label>
+        <div class="form-group"> <label>Name Responsible Waiter:</label>
             <span>{{invoice.meal.responsible_waiter}} </span>
         </div>
-        <div class="form-group">
-            <label>Total Price:</label>
+        <div class="form-group"> <label>Total Price:</label>
             <span>{{invoice.total_price}} </span>
         </div>
- 
         <table class="table table-striped">
         <thead>
         <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Sub-total</th>
-            <th>Total</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total Price</th>
         </tr>
         </thead>
         <tbody>

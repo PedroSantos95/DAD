@@ -5,11 +5,9 @@
 		</div>
 
 		<div>
-			<router-link to="/items/new/item"> <button>Add</button></router-link>
+			<router-link  to="/items/new/item"> <button class="btn btn-success">Add New Item</button></router-link>
 		</div>
-
 	  <item-edit :item="currentItem" @item-saved="saveItem"  @item-canceled="cancelEdit" v-if="currentItem"></item-edit>
-        
       <item-list :items="items" @delete-click="deleteItem" ref="itemsListRef" @edit-click="editItem"></item-list>
 
 	</div>			
@@ -25,8 +23,8 @@
 	export default {
 		data: function(){
 			return { 
-		        title:'List item',
-		        editingItem: false,
+		        title:'List of Items',
+				editingItem: false,
 				showSuccess: false,
 				showFailure: false,
 				successMessage: '',
@@ -43,33 +41,30 @@
 			},
 
 			editItem: function(item){
+				//this.isLoggedIn = this.$store.getters.loggedIn;
 	            this.currentItem = item;
 				this.showSuccess = false;
-				
 			},
-
-            deleteItem: function(item){		
-	             axios.delete('api/items/', {params:{id:item.id}})
-	                .then(response => {
-	                    this.showSuccess = true;
-						this.successMessage = 'Item Deleted';
-						this.getItems();	                    
-	                }); 
+			deleteItem: function(item){     
+                 axios.delete('api/items/' + item.id)
+                    .then(response => {
+                        this.showSuccess = true;
+                        this.successMessage = 'Item Deleted';
+                        this.getItems();                        
+                    }); 
+            },
+			saveItem: function(){
+				this.currentItem = null;
+				this.$refs.itemsListRef.editingItem = null;
+				this.showSuccess = true;
+				this.successMessage = 'Item Saved';
 			},
-
-            saveItem: function(){
-                this.currentItem = null;
-                this.$refs.itemsListRef.editingItem = null;
-                this.showSuccess = true;
-                this.successMessage = 'Item Saved';
-            },
-            cancelEdit: function(){
-                this.currentItem = null;
-                this.$refs.itemsListRef.editingItem = null;
-                this.showSuccess = false;
-            },
+			cancelEdit: function(){
+				this.currentItem = null;
+				this.$refs.itemsListRef.editingItem = null;
+			},
 			
-	    },
+		},
 	    mounted(){
 	    	this.getItems();
 	    },

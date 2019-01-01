@@ -1,86 +1,64 @@
 <?php
-
 namespace App\Http\Controllers;
-
-
-use Illuminate\Http\Request;
-use App\Http\Resources\Notifiable\Notifiable;
-
-
-use App\Http\Resources\Meal as MealResource;
-
-use Notification;
 use App\Meal;
-
-
-
+use Illuminate\Http\Request;
+use App\Http\Resources\Meal as MealResource;
+use SebastianBergmann\Environment\Console;
+use DB;
 class MealControllerAPI extends Controller
 {
     public function getMeals(Request $request)
     {
-       return MealResource::collection(Meal::all());
+        return Meal::all();
+    }
+    public function add(Request $request)
+    {
+        $meal = new Meal();
+        $meal->fill($request->all());
+        $meal->state ="active";
+        $mytime = Carbon\Carbon::now();
+        $meal->start = $mytime->toDateTimeString();
+        $meal->save();
+        return response()->json($meal, 200);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function showMeal(Request $request, $id){
+        $meals = Meal::findOrFail($id);
+        $meals = DB::table('orders')
+            ->join('items', 'items.id', '=', 'orders.item_id')
+            ->join('meals', 'meals.id', '=', 'orders.meal_id')
+            ->select('meals.table_number', 'meals.total_price_preview', 'items.name', 'items.price')
+            ->where('meals.id', $id)
+            ->get();
+        return $meals;
     }
 
+   /* public function showInvoice(Request $request, $id){
+        $meals = Meal::findOrFail($id);
+        $meals = DB::table('invoice_items')
+            ->join('items', 'invoice_items.item_id', '=', 'items.id')
+            ->select('invoice_items.quantity', 'invoice_items.unit_price', 'invoice_items.sub_total_price', 'items.name')
+            ->where('invoice_items.invoice_id', $id)
+            ->get();
+        return $meals;
+    }
+      
+        $meals = DB::table('orders')
+            ->join('items', 'items.id', '=', 'orders.item_id')
+            ->join('meals', 'meals.id', '=', 'orders.meal_id')
+            ->select('meals.table_number', 'meals.total_price_preview', 'items.name', 'items.price')
+            ->where('meals.id', $id)
+            ->get();
+        return $meals;
+    } */
+
+    public function getMealWaiterPerDay(Request $request)
+    {
+      $waiter_meals=DB::table('meals')
+            ->select(DB::raw('count(*) as count, HOUR(start) as hour'))
+            ->whereDate('start', '=', Carbon::now()->toDateString())
+            ->groupBy('hour')
+            ->get();
+        return $waiter_meals;
+    }
 }

@@ -11,6 +11,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
 
 const user = Vue.component('user', require('./components/User.vue'));
@@ -20,24 +21,29 @@ const userAdd = Vue.component('user-add', require('./components/userAdd.vue'));
 
 const shift = Vue.component('shift',require('./components/shift.vue'));
 
-const item = Vue.component('item', require('./components/item.vue'));
-const itemList = Vue.component('item-list', require('./components/itemList.vue'));
-const itemEdit = Vue.component('item-edit', require('./components/itemEdit.vue'));
-const itemAdd = Vue.component('item-add', require('./components/itemAdd.vue'));
+const item = Vue.component('item', require('./components/items/item.vue'));
+const itemList = Vue.component('item-list', require('./components/items/itemList.vue'));
+const itemEdit = Vue.component('item-edit', require('./components/items/itemEdit.vue'));
+const itemAdd = Vue.component('item-add', require('./components/items/itemAdd.vue'));
 
-const meal = Vue.component('meal', require('./components/meal.vue'));
-const mealList = Vue.component('meal-list', require('./components/mealList.vue'));
+const meal = Vue.component('meal', require('./components/meals/meal.vue'));
+const mealList = Vue.component('meal-list', require('./components/meals/mealList.vue'));
+const mealStart = Vue.component('meal-start', require('./components/meals/mealStart.vue'));
+const mealInfo = Vue.component('meal-info', require('./components/meals/mealInfo.vue'));
 
-const order = Vue.component('order', require('./components/order.vue'));
-const orderList = Vue.component('order-list', require('./components/orderList.vue'));
+const order = Vue.component('order', require('./components/orders/order.vue'));
+const orderList = Vue.component('order-list', require('./components/orders/orderList.vue'));
+const orderAdd = Vue.component('order-add', require('./components/orders/orderAdd.vue'));
 
 const profile = Vue.component('profile', require('./components/profile.vue'));
-const login = Vue.component('login', require('./components/login.vue'));
-const logout = Vue.component('logout', require('./components/logout.vue'));
 
-const invoice = Vue.component('invoice', require('./components/invoice.vue'));
-const invoiceList = Vue.component('invoice-list', require('./components/invoiceList.vue'));
-const invoiceShow = Vue.component('invoice-show', require('./components/invoiceShow.vue'));
+const login = Vue.component('login', require('./components/auth/login.vue'));
+const logout = Vue.component('logout', require('./components/auth/logout.vue'));
+
+const invoice = Vue.component('invoice', require('./components/invoices/invoice.vue'));
+const invoiceList = Vue.component('invoice-list', require('./components/invoices/invoiceList.vue'));
+const invoiceInfo = Vue.component('invoice-info', require('./components/invoices/invoiceInfo.vue'));
+
 
 const routes = [
   { path: '/', redirect: '/items' },
@@ -45,13 +51,16 @@ const routes = [
   { path: '/users/:id', component: userEdit},
   { path: '/users/new/user', component: userAdd},
 
-  {path:'/shift',component:shift ,name:'shift'},
+  { path:'/shift',component:shift ,name:'shift'},
 
   { path: '/items', component: item },
   { path: '/items/new/item', component: itemAdd },
   { path: '/items/:id', component: itemEdit },
 
   { path: '/meals', component: meal },
+  { path: '/meals/:id',component: mealInfo },
+  { path: '/meals/start',component: mealStart },
+
   { path: '/profile', component: profile, name: 'profile'},
   { path: '/login', component: login, name: 'login'},
   { path: '/logout', component: logout, name: 'logout'},
@@ -59,7 +68,7 @@ const routes = [
   { path: '/orders', component: order },
 
   { path: '/invoices', component: invoice },
-  { path: '/invoices/:id', component: invoiceShow },
+  { path: '/invoices/:id', component: invoiceInfo },
 ];
 
 const router = new VueRouter({

@@ -25,6 +25,7 @@ class ShiftControllerAPI extends Controller
         $user->update($request->all());
         return new User($user);
     }
+
     public function shiftStart(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -33,6 +34,7 @@ class ShiftControllerAPI extends Controller
         $user->update();
         return new UserResource($user);
     }
+    
     public function shiftEnd(Request $request, $id)
     {
         $user = User::findOrFail($id);

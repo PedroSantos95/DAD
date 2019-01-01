@@ -5,8 +5,8 @@
             <h1>{{ title }}</h1>
         </div>
         <div>
-            <invoice-show :invoice="currentInvoice" :items="items" v-if="currentInvoice" ></invoice-show>
-            <invoice-list :invoices="invoices"  @show-click="showInvoice"></invoice-list>
+            <invoice-info :invoice="currentInvoice" :items="items" v-if="currentInvoice" ></invoice-info>
+            <invoice-list :invoices="invoices"  @show-click="infoInvoice"></invoice-list>
         </div>
     </div>
  
@@ -15,12 +15,12 @@
 <script type="text/javascript">
  
     import InvoiceList from './invoiceList.vue';
-    import InvoiceShow from './invoiceShow.vue';
+    import InvoiceInfo from './invoiceInfo.vue';
  
     export default {
         data: function () {
             return {
-                title: 'List invoice',
+                title: 'List of invoices',
                 showingInvoice: false,
                 currentInvoice: null,
                 showSuccess: false,
@@ -39,7 +39,7 @@
                         this.invoices = response.data.data;
                     }); // ver a estrutura do json
             },
-            showInvoice: function (invoice) {
+            infoInvoice: function (invoice) {
                 this.currentInvoice = invoice;
                 this.showSuccess = false;
                 axios.get('api/invoices/'+ invoice.id)
@@ -58,7 +58,7 @@
         },
         components: {
             'invoice-list': InvoiceList,
-            'invoice-show': InvoiceShow,
+            'invoice-info': InvoiceInfo,
         },
         mounted() {
             this.getInvoices();

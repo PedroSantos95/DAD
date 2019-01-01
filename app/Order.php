@@ -22,9 +22,16 @@ class Order extends Model
         'responsible_cook_id',
     ];
 
+    public function meals()
+    {
+        return $this->belongsTo(Meal::class);
+    }
     public function cookers()
     {
         return $this->belongsTo(User::class);
     }
-    
+    public function items()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

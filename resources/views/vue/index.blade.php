@@ -4,16 +4,23 @@
 
 @section('content')
 
-          <router-link to="/items">Menu</router-link> -           
-          <router-link to="/users">Users</router-link> -
-          <router-link to="/orders">Orders</router-link> -
-          <router-link to="/meals">Meals</router-link> -
-          <router-link to="/profile">Profile</router-link> -
-          <router-link to="/login">Login</router-link> -
-          <router-link to="/logout">Logout</router-link> -
-          <router-link to="/invoices">Invoices</router-link> -
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Restaurant Management</a>
+          <router-link to="/items">Menu</router-link>            
+          <router-link to="/users">Users</router-link>
+          <router-link to="/orders">Orders</router-link>
+          <router-link to="/meals">Meals</router-link>
+          <router-link to="/profile">Profile</router-link>
+          <router-link to="/login">Login</router-link>
+          <router-link to="/logout">Logout</router-link>
+          <router-link to="/invoices">Invoices</router-link>
           <router-link to="/shift">Shift</router-link>
-
+    </ul>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+  </div>
+</nav>
           <router-view> </router-view>
 
 @endsection

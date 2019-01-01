@@ -41,8 +41,6 @@
 </template>
 
 <script type="text/javascript">
-    
-	// Component code (not registered)
 	export default{
 		data: function(){
            	return{

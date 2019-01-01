@@ -4,8 +4,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Username</th>
-            <th>Shift-Start</th>
-            <th>Time-Passed</th>
+            <th>Shift Start</th>
+            <th>Time Passed</th>
             <th>Action</th>
         </tr>
         <tr v-for="(user, index) in users"  :key="user.id">
@@ -45,6 +45,7 @@
         </tr>
     </table>
 </template>
+
 <script type="text/javascript">
     import CountdownTimer from './Timer.vue';
     import axios from 'axios';
@@ -62,13 +63,9 @@
  
         methods: {
             endShift: function(){
-                //var now = new Date().format('dd-m-yy');
-                //this.user.last_shift_end = now+"";
                 axios.post('api/shiftEnd/'+this.user.id, this.user)
                     .then(response=>{
                         console.log(this.user.last_shift_end);
-                        // Copy object properties from response.data.data to this.user
-                        // without creating a new reference
                         this.getUsers();
                         Object.assign(this.user, response.data.data);
                         this.$emit('shift-End', this.user);
@@ -81,8 +78,6 @@
                     });
             },
             startShift: function(id) {
-                //this.user.last_shift_start= new Date();
-                //this.user.shift_active= 1;
                 axios.post('api/shiftStart/' + id, this.user)
                     .then(response=>{
                         this.getUsers();

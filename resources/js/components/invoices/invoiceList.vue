@@ -1,29 +1,27 @@
 <template>
 <div class="container" id="people">
     <div class="filter">
- 
-        <label><input type="radio" v-model="selectedCategory" value="All"/> All</label>
-        <label><input type="radio" v-model="selectedCategory" value="Pending"/> Pending</label>
- 
+        <label><input type="radio" v-model="selectedType" value="All"/> All </label>
+        <label><input type="radio" v-model="selectedType" value="Pending"/> Pending</label>
     </div>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Name</th>
-            <th>Total-Price</th>
-            <th>Table-Number</th>
+            <th>Table</th>
             <th>Waiter</th>
-            <th>Action</th>
+            <th>Price</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="invoice in filteredInvoices"  :key="invoice.id" :class="{activerow: showingInvoice === invoice}">
+        <tr v-for="invoice in invoicesType"  :key="invoice.id">
             <td>{{ invoice.name }}</td>
-            <td>{{ invoice.total_price }}</td>
             <td>{{ invoice.meal.table_number }}</td>
             <td>{{ invoice.meal.responsible_waiter }}</td>
+            <td>{{ invoice.total_price }}</td>
             <td>
-                <button @click="showInvoice(invoice)">Info</button>
+                <button @click="invoiceInfo(invoice)" type="button" class="btn btn-info">Info</button>
             </td>
         </tr>
         </tbody>
@@ -32,24 +30,24 @@
 </template>
  
 <script>
-    // Component code (not registered)
+    
     module.exports = {
         props: ["invoices"],
         data: function() {
             return {
                 showingInvoice:null,
-                selectedCategory: 'Pending'
+                selectedType: 'Pending'
             };
         },
         methods: {
-            showInvoice: function(invoice){
+            invoiceInfo: function(invoice){
                 this.showingInvoice = invoice;
                 this.$emit('show-click', invoice);
             },
         },
         computed:{
-            filteredInvoices: function() {
-                var category = this.selectedCategory;
+            invoicesType: function() {
+                var category = this.selectedType;
                 if(category === "All") {
                     return this.invoices;
                 }
