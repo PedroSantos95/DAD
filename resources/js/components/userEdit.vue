@@ -44,7 +44,6 @@
         data() {
             return {
                 selectedFile: "",
-                
             }
         },
 	    methods: {

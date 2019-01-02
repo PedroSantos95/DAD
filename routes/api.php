@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//USERS
 Route::get('users', 'UserControllerAPI@index');
 Route::post('users', 'UserControllerAPI@add');
 Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
@@ -25,11 +26,12 @@ Route::post('users', 'UserControllerAPI@store');
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
 Route::post('users/block/{id}', 'UserControllerAPI@blockUser');
-Route::post('users/delete/{id}', 'UserControllerAPI@restoreDestroy');
 
+//SHIFTS
 Route::post('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
 Route::post('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 
+//AUTH
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::middleware('auth:api')->post('logout', 'LoginControllerAPI@logout');
 
@@ -38,21 +40,30 @@ Route::get('items', 'ItemControllerAPI@getItems');
 Route::post('items', 'ItemControllerAPI@add');
 Route::put('items', 'ItemControllerAPI@edit');
 Route::delete('items/{id}', 'ItemControllerAPI@destroy');
-Route::post('items/delete/{id}', 'ItemControllerAPI@restoreDestroy');
 
+//MEALS
 Route::get('meals', 'MealControllerAPI@getMeals');
 Route::post('meals', 'MealControllerAPI@add');
 Route::get('meals/{id}', 'MealControllerAPI@showMeal');
-Route::get('meals/waiter', 'MealControllerAPI@getMealWaiterPerDay');
+//----
+Route::get('meals/waiter', 'MealControllerAPI@getDailyMealsWaiter');
 
-Route::get('orders/{id}', 'OrderControllerAPI@getOrders');
+//ORDERS
+Route::get('orders', 'OrderControllerAPI@getOrders');
 Route::delete('orders/{id}', 'OrderControllerAPI@delete');
-Route::post('orders/{id}', 'OrderControllerAPI@setState');
+Route::post('orders/{id}', 'OrderControllerAPI@orderState');
 Route::post('orders/{id}', 'OrderControllerAPI@confirmOrder');
 Route::post('orders', 'OrderControllerAPI@add');
 
+//INVOICES
 Route::get('invoices', 'InvoiceControllerAPI@getInvoices');
 Route::get('invoices/{id}', 'InvoiceControllerAPI@showInvoice');
+
+//STATS ---> PROF
+Route::get('/statistics/orders/{user}', 'OrderControllerAPI@getDailyOrders');
+Route::get('/statistics/meals/{user}', 'MealControllerAPI@getDailyMeals');
+
+
 
 
 /*

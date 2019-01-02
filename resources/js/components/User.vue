@@ -5,15 +5,11 @@
         </div>
 
         <user-edit :user="currentUser" @user-saved="saveUser"  @user-canceled="cancelEdit" v-if="currentUser"></user-edit>
-
-
-        <router-link to="/users/new/user"> <button class="btn btn-success">Add New User</button>  </router-link>
-
         <div class="alert alert-success" v-if="showSuccess">
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
             <strong>{{ successMessage }}</strong>
         </div>
-
+        <router-link to="/users/new/user"> <button class="btn btn-success">Add New User</button ></router-link>
         <user-list :users="users" @delete-click="deleteUser" ref="usersListRef"
                    @edit-click="editUser"></user-list>
 
@@ -29,7 +25,7 @@ import UserList from "./userList.vue";
 export default {
   data: function() {
     return {
-      title: "List Users",
+      title: "List of Users",
       editingUser: false,
       showSuccess: false,
       showFailure: false,

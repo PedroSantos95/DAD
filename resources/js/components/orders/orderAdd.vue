@@ -1,6 +1,6 @@
 <template>
 	<div class="jumbotron">
-		<h1>Create Order</h1>
+		<h1>Add Order</h1>
         
         <form method="POST" action="api/orders/">
             <div class="form-group">
@@ -18,7 +18,7 @@
 	        </div>
 
         <br>
-        <a class="btn btn-primary" v-on:click.prevent="CreateOrder()">Add</a>
+        <a class="btn btn-primary" v-on:click.prevent="addOrder()">Add</a>
         <a class="btn btn-danger" v-on:click.prevent="cancelOrder()">Cancel</a>
         </form>
 
@@ -47,7 +47,7 @@
               axios.get('api/items')
 					.then(response=>{ this.items = response.data; }); 		
 			},
-            CreateOrder(){
+            addOrder(){
                  this.form.post('api/orders/')
                    // .then(response => console.log("Success"))
                    .then(response => {

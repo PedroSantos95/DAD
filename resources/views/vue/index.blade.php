@@ -15,13 +15,14 @@
           <router-link to="/logout">Logout</router-link>
           <router-link to="/invoices">Invoices</router-link>
           <router-link to="/shift">Shift</router-link>
+          <router-link to="/stats">Stats</router-link>
     </ul>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
   </div>
 </nav>
-          <router-view> </router-view>
+<router-view> </router-view>
 
 @endsection
 @section('pagescript')

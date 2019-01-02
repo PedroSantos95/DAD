@@ -4,7 +4,7 @@
 		<div class="jumbotron">
 			<h1>{{ title }}</h1>
 		</div>
-		<router-link to="/meals/start"> <button class="btn btn-xs btn-success">Start</button></router-link>
+		<router-link to="/meals/start"> <button class="btn btn-xs btn-success">Start Meal</button></router-link>
 		<div>
 			<meal-list :meals="meals"  @show-click="mealShow" ></meal-list>
 			<meal-show :meal="currentMeal" :meals="meals" v-if="currentMeal"></meal-show>

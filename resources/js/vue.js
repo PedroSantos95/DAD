@@ -44,6 +44,9 @@ const invoice = Vue.component('invoice', require('./components/invoices/invoice.
 const invoiceList = Vue.component('invoice-list', require('./components/invoices/invoiceList.vue'));
 const invoiceInfo = Vue.component('invoice-info', require('./components/invoices/invoiceInfo.vue'));
 
+const stats = Vue.component('stats', require('./components/stats.vue'));
+
+
 
 const routes = [
   { path: '/', redirect: '/items' },
@@ -66,9 +69,13 @@ const routes = [
   { path: '/logout', component: logout, name: 'logout'},
   
   { path: '/orders', component: order },
+  { path: '/orders/new/order', component: orderAdd },
 
   { path: '/invoices', component: invoice },
   { path: '/invoices/:id', component: invoiceInfo },
+
+
+  { path: '/stats/orders/:id', component: stats },
 ];
 
 const router = new VueRouter({

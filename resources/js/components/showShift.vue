@@ -27,8 +27,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Username</th>
-            <th>Last-Shift-End</th>
-            <th>Time-Passed</th>
+            <th>Last Shift</th>
+            <th>Time Passed</th>
             <th>Action</th>
         </tr>
         <tr v-for="(user, index) in users"  :key="user.id">

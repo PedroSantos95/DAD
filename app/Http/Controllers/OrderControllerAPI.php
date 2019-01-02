@@ -18,12 +18,7 @@ class OrderControllerAPI extends Controller
 {
     public function getOrders(Request $request)
     {
-      $orders = DB::table('orders')
-            ->select('orders.id', 'orders.state', 'orders.item_id', 'orders.responsible_cook_id' ,'orders.meal_id','orders.start','orders.end','orders.created_at','orders.updated_at')
-            ->join('users', 'orders.responsible_cook_id', '=', 'users.id')
-            ->where('orders.responsible_cook_id', $id)
-            ->get();
-        return $orders;
+      return orders::all();
     }
 
     public function add(Request $request)
@@ -44,7 +39,7 @@ class OrderControllerAPI extends Controller
         return response()->json($order, 200);
     }
 
-        public function setState($id)
+    public function orderState($id)
     {
         $order = order::findOrFail($id);
         if($order->state === 'confirmed'){
@@ -85,9 +80,8 @@ class OrderControllerAPI extends Controller
         return response()->json(null, 204);
     }
 
-    public function getOrdersByDay(User $user){
-
+    public function getDailyOrders(User $user){
+        
     }
-
 
 }

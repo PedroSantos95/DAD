@@ -4,9 +4,9 @@
 			<h1>{{ title }}</h1>
 		</div>
 
-		<router-link to="/orders/add"> <button class="btn btn-xs btn-success">Add</button> </router-link>
+		<router-link to="/orders/new/orders"><button class="btn btn-xs btn-success">Add New Order</button> </router-link>
 
-		<order-list :orders="orders" @set_state-click="setState" @delete-click="deleteOrder" > </order-list>
+		<order-list :orders="orders" @set_state-click="orderState" @delete-click="deleteOrder" > </order-list>
 		<!--<order-list :orders="orders" @delete-click="deleteOrder" @message="childMessage" ref="ordersListRef"></order-list> -->
 
 		<div class="alert alert-success" v-if="showSuccess">
@@ -36,24 +36,9 @@
 			}
 		},
 		methods: {
-			setState: function(order){
-				if (order.state === 'delivered') {
-					this.message = 'Order Delivered';
-				} else if(order.state === 'not delivered') {
-					this.message = 'Order not delivered';
-				} else if(order.state === 'in preparation'){
-					this.message = 'Order is being prepared';
-				} else if (order.state === 'prepared') {
-					this.message = 'Order is prepared';
-				} else if(order.state === 'confirmed'){
-					this.message = 'Order is confirmed';
-				} else {
-					this.message = 'Order is pending';
-				}
+			orderState: function(order){
 				axios.post('api/orders/' + order.id)
 						.then(response=>{
-							// Copy object properties from response.data.data to this.user
-							// without creating a new reference
 							if (order.state === 'pending') {
 								order.state = 'confirmed';
 							} else if(order.state === 'confirmed'){
