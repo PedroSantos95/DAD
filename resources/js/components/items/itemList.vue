@@ -14,8 +14,8 @@
 			<td>{{ item.name }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
-			<!--<td ><img width="100px" :src="getFoodImage(item.photo_url)"></td>
-				<td v-if="isLoggedIn && isManager">-->
+			<td ><img width="100px" :src="getFoodImage(item.photo_url)"></td>
+				
 				<button class="btn btn-primary" @click="editItem(item)">edit</button>
 				<button class="btn btn-danger" @click="deleteItem(item)">Delete</button>
 			</td>

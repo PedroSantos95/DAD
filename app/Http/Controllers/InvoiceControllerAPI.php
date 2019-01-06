@@ -22,5 +22,17 @@ class InvoiceControllerAPI extends Controller
             ->where('invoice_items.invoice_id', $id)->get();
          return $items;
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+                'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+                'nif' => 'required|min:8|max:9',
+                'state' => 'required'
+            ]);
+        $invoice = Invoice::findOrFail($id);
+        $invoice->update($request->all());
+        return new InvoiceResource($invoice);
+    }
  
 }

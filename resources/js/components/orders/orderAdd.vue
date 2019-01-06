@@ -16,10 +16,9 @@
                     <option v-for="item in items" v-bind:value="item.id"> {{ item.name }} </option>
                 </select>
 	        </div>
-
         <br>
         <a class="btn btn-primary" v-on:click.prevent="addOrder()">Add</a>
-        <a class="btn btn-danger" v-on:click.prevent="cancelOrder()">Cancel</a>
+        <a class="btn btn-danger" v-on:click.prevent="cancelAdd()">Cancel</a>
         </form>
 
         
@@ -35,6 +34,9 @@
            	return{
                 meals: [],
                 items: [],
+                order:{
+
+                }
             }			
 		},
         methods: {
@@ -46,9 +48,9 @@
             getItems: function(item){
               axios.get('api/items')
 					.then(response=>{ this.items = response.data; }); 		
-			},
+			     },
             addOrder(){
-                 this.form.post('api/orders/')
+                 axios.post('api/orders/')
                    // .then(response => console.log("Success"))
                    .then(response => {
                        console.log(response);                        
@@ -58,6 +60,13 @@
                     confirmOrder(order);
                 }, 5000);
             },  
+            cancelAdd: function(){
+            axios.get('api/orders/'+this.order.id)
+                  .then(response=>{
+                    Object.assign(this.order, response.data.data);
+                    this.$emit('order-canceled', this.order);
+                  });
+            },
             confirmOrder: function(order){
                 axios.post('api/orders/'+order.id)
                     .then(response=>{

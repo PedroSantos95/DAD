@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Jsonable;
 
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Order as OrderResource;
+
 use Illuminate\Support\Facades\DB;
 
 use App\User;
@@ -58,11 +59,11 @@ class UserControllerAPI extends Controller
 
    public function store(Request $request)
     {
-       /* $request->validate([
+        $request->validate([
                 'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'min:3'
-            ]);*/
+            ]);
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
@@ -101,6 +102,39 @@ class UserControllerAPI extends Controller
         }
         return response()->json($totalEmail == 0);
     }
+
+
+    public function changePassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $currentPassword = $user->password;
+        if (Hash::check($request->input('oldPassword'), $user->password) && ($request->input('newPassword') == $request->input('confirmPassword'))) {
+            $user->update([
+                'password' => Hash::make($request->input('newPassword'))
+            ]);
+            return response()->json([
+                'message' => 'Password updated'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Something Went Wrong!!'
+            ]);
+        }
+        return $user;
+    }
+
+    public function blockUser($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->blocked === 1) {
+            $user->blocked = 0;
+        } else {
+            $user->blocked = 1;
+        }
+        $user->save();
+        return response()->json($user, 200);
+    }
+
     
     public function myProfile(Request $request)
     {

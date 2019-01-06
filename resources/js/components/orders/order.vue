@@ -4,10 +4,9 @@
 			<h1>{{ title }}</h1>
 		</div>
 
-		<router-link to="/orders/new/orders"><button class="btn btn-xs btn-success">Add New Order</button> </router-link>
+		<router-link to="/orders/new/order"><button class="btn btn-xs btn-success">Add New Order</button> </router-link>
 
-		<order-list :orders="orders" @set_state-click="orderState" @delete-click="deleteOrder" > </order-list>
-		<!--<order-list :orders="orders" @delete-click="deleteOrder" @message="childMessage" ref="ordersListRef"></order-list> -->
+		<order-list :orders="orders" @order_state-click="orderState" @delete-click="deleteOrder"> </order-list>
 
 		<div class="alert alert-success" v-if="showSuccess">
 
@@ -65,25 +64,33 @@
 							this.getOrders();
 						});
 			},
-			/*savedOrder: function(){
+			savedOrder: function(){
                 this.currentOrder = null;
                 this.$refs.ordersListRef.editingOrder = null;
                 this.showSuccess = true;
                 this.successMessage = 'Order Saved';
-            },*/
+            },
 	        getOrders: function(){
-				console.log(this.$store.state.user.id);
-                axios.get('/api/orders/'+this.$store.state.user.id).then(response=>{
+				//console.log(this.$store.state.user.id);
+                axios.get('/api/orders/').then(response=>{
 				this.orders = response.data;})
 				.catch(error=>{
 					this.showFailure = true;
 					this.failMessage = 'Error while fetching the existing orders!';
 				});
 			},
+			cancelAdd: function(){
+            axios.get('api/orders/'+this.order.id)
+                  .then(response=>{
+                    Object.assign(this.order, response.data.data);
+                    this.$emit('order-canceled', this.order);
+                  });
+            },
 			childMessage: function(message){
 				this.showSuccess = true;
 				this.successMessage = message;
 			}
+
 	    },
 	   	components: {
 	    	'order-list': OrderList,

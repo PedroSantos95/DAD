@@ -8,8 +8,7 @@ class ItemControllerAPI extends Controller
 {
     public function getItems(Request $request)
     {
-        return ItemResource::collection(Item::all());
-        
+        return ItemResource::collection(Item::all());     
     }
     public function add(Request $request)
     {
@@ -26,17 +25,17 @@ class ItemControllerAPI extends Controller
         $item->update($request->all());
         return response()->json($item,200);
     }
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
         $item = Item::findOrFail($id);
-        $item->delete();
+        $orders = DB::table('orders')->where('orders.item_id', $id)->count();
+        $invoice_items = DB::table('invoice_items')->where('invoice_items.item_id', $id)->count();
+        if($orders != 0 or $invoice_items!=0){
+            $item->delete();
+        }
         return response()->json(null, 204);
     }
 
-   /* public function restoreDestroy($id)
-    {
-        Item::withTrashed()->find($id)->restore();
-        return response()->json(null, 204);;
-    }*/
+   
    
 }

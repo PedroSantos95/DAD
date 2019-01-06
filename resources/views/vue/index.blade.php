@@ -15,7 +15,8 @@
           <router-link to="/logout">Logout</router-link>
           <router-link to="/invoices">Invoices</router-link>
           <router-link to="/shift">Shift</router-link>
-          <router-link to="/stats">Stats</router-link>
+          <router-link to="/restaurantTables">Tables</router-link>
+          <router-link to="/changePass">Change-Pass</router-link>
     </ul>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">

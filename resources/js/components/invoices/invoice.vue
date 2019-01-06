@@ -5,9 +5,15 @@
             <h1>{{ title }}</h1>
         </div>
         <div>
-            <invoice-info :invoice="currentInvoice" :items="items" v-if="currentInvoice" ></invoice-info>
-            <invoice-list :invoices="invoices"  @show-click="infoInvoice"></invoice-list>
-        </div>
+             <invoice-list :invoices="invoices"  @show-click="infoInvoice" @close-invoice="closeInvoice" ref="mealsListRef"></invoice-list>
+
+            <div class="alert alert-success" v-if="showSuccess">             
+            <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
+            <strong>{{ successMessage }}</strong>
+            </div>
+                <invoice-info :invoice="currentInvoice" @invoice-saved="saveInvoice" @invoice-canceled="cancelEdit" :items="items" v-if="currentInvoice" ></invoice-info>
+                <end-invoice :invoice="currentInvoice"  @invoice-saved="saveInvoice" @invoice-canceled="cancelEdit" v-if="currentInvoice"></end-invoice>
+            </div>
     </div>
  
 </template>
@@ -16,6 +22,7 @@
  
     import InvoiceList from './invoiceList.vue';
     import InvoiceInfo from './invoiceInfo.vue';
+    import InvoiceEnd  from './invoiceEnd.vue';
  
     export default {
         data: function () {
@@ -37,7 +44,7 @@
                 axios.get('api/invoices')
                     .then(response => {
                         this.invoices = response.data.data;
-                    }); // ver a estrutura do json
+                    }); 
             },
             infoInvoice: function (invoice) {
                 this.currentInvoice = invoice;
@@ -55,10 +62,27 @@
                 this.successMessage = 'User Saved';
                 this.$socket.emit('user_changed', savedUser)
             },
+
+            closeInvoice: function(invoice){
+                this.currentInvoice = invoice;
+                this.showSuccess = false;
+            },
+            saveInvoice: function(){
+                this.currentInvoice = null;
+                this.$refs.invoicesListRef.currentInvoice = null;
+                this.showSuccess = true;
+                this.successMessage = 'Invoice Saved';
+            },
+            cancelEdit: function(){
+                this.currentMeal = null;
+                this.$refs.invoicesListRef.currentInvoice = null;
+                this.showSuccess = false;
+            },
         },
         components: {
             'invoice-list': InvoiceList,
             'invoice-info': InvoiceInfo,
+            'invoice-end': InvoiceEnd,
         },
         mounted() {
             this.getInvoices();

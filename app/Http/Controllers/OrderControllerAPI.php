@@ -18,9 +18,10 @@ class OrderControllerAPI extends Controller
 {
     public function getOrders(Request $request)
     {
-      return orders::all();
-    }
+      return Order::all();
 
+    }
+    
     public function add(Request $request)
     {
         $current = Carbon::now();

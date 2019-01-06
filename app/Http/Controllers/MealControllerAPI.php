@@ -37,9 +37,4 @@ class MealControllerAPI extends Controller
 
     }
 
-   /*  public function getDailyMealsWaiter(Request $request)
-    {
-      
-    }*/
-
 }

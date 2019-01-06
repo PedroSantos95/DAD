@@ -44,7 +44,9 @@
                 selectedItem: null,
                 successMessage: '',
                 table_number:'',
-                user: this.$store.state.user,
+                user: {
+                    
+                }    
             }
         },
         methods: {
@@ -53,12 +55,16 @@
                     .then(response => {
                         console.log(response);
                     })
-                    .catch(error => console.log('Whoops'));
+                    .catch(error => console.log(''));
+            },
+            getRestaurantTables: function(){
+                axios.get('api/restaurant_tables')
+                    .then(response=>{ this.restaurant_tables = response.data; }); 
             },
           
         },
         mounted() {
-          
+           this.getRestaurantTables();
         }
     }
 </script>

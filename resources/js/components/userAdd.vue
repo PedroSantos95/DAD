@@ -28,6 +28,7 @@
                 <label for="username">Type</label>
 		                <option>Waiter</option>
 		                <option>Cook</option>
+		                <option>Cashier</option>
 		                <option>Manager</option>
             </select>
 

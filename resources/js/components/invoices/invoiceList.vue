@@ -15,13 +15,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="invoice in invoicesType"  :key="invoice.id">
+        <tr v-for="invoice in invoicesType"  :key="invoice.id" :class="{activerow: currentInvoice === invoice}">
             <td>{{ invoice.name }}</td>
             <td>{{ invoice.meal.table_number }}</td>
             <td>{{ invoice.meal.responsible_waiter }}</td>
             <td>{{ invoice.total_price }}</td>
             <td>
                 <button @click="invoiceInfo(invoice)" type="button" class="btn btn-info">Info</button>
+               <!-- <button @click="invoiceEnd(invoice)" type="button" class="btn btn-danger">End</button>-->
             </td>
         </tr>
         </tbody>
@@ -36,13 +37,18 @@
         data: function() {
             return {
                 showingInvoice:null,
-                selectedType: 'Pending'
+                selectedType: 'Pending',
+                currentInvoice:null
             };
         },
         methods: {
             invoiceInfo: function(invoice){
                 this.showingInvoice = invoice;
                 this.$emit('show-click', invoice);
+            },
+            invoiceEnd: function(invoice){
+                this.currentInvoice = invoice;
+                this.$emit('end-invoice', invoice);
             },
         },
         computed:{

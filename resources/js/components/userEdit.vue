@@ -27,8 +27,8 @@
             <br>
 	        <img  width="100px" :src="getProfileImage(user.photo_url)">
             <br>
-            <input type="file" @change="onFileSelected">
-            <button @click="onUpload">Upload</button>
+            <input  type="file" @change="onFileSelected">
+            <button class="btn .btn" @click="onUpload">Upload</button>
 	    </div>
 
 	    <div class="form-group">

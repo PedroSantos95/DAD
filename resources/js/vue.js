@@ -12,7 +12,10 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
 
+
 Vue.use(VueRouter);
+
+import store from './stores/global-store';
 
 const user = Vue.component('user', require('./components/User.vue'));
 const userList = Vue.component('user-list', require('./components/userList.vue'));
@@ -36,6 +39,7 @@ const orderList = Vue.component('order-list', require('./components/orders/order
 const orderAdd = Vue.component('order-add', require('./components/orders/orderAdd.vue'));
 
 const profile = Vue.component('profile', require('./components/profile.vue'));
+const changePass = Vue.component('changePass', require('./components/changePass.vue'));
 
 const login = Vue.component('login', require('./components/auth/login.vue'));
 const logout = Vue.component('logout', require('./components/auth/logout.vue'));
@@ -43,8 +47,13 @@ const logout = Vue.component('logout', require('./components/auth/logout.vue'));
 const invoice = Vue.component('invoice', require('./components/invoices/invoice.vue'));
 const invoiceList = Vue.component('invoice-list', require('./components/invoices/invoiceList.vue'));
 const invoiceInfo = Vue.component('invoice-info', require('./components/invoices/invoiceInfo.vue'));
+const invoiceEnd = Vue.component('end-invoice', require('./components/invoices/invoiceEnd'));
 
-const stats = Vue.component('stats', require('./components/stats.vue'));
+const r_tables = Vue.component('tables', require('./components/tables/restaurantTables.vue'));
+const r_tablesList = Vue.component('tables-list', require('./components/tables/restaurantTablesList.vue'));
+const r_tablesAdd = Vue.component('tables-add', require('./components/tables/restaurantTablesAdd.vue'));
+const r_tablesShow = Vue.component('tables-show', require('./components/tables/restaurantTablesShow.vue'));
+const r_tablesEdit = Vue.component('tables-edit', require('./components/tables/restaurantTablesEdit.vue'));
 
 
 
@@ -53,6 +62,7 @@ const routes = [
   { path: '/users', component: user },
   { path: '/users/:id', component: userEdit},
   { path: '/users/new/user', component: userAdd},
+  { path: '/changePass', component: changePass },
 
   { path:'/shift',component:shift ,name:'shift'},
 
@@ -67,15 +77,18 @@ const routes = [
   { path: '/profile', component: profile, name: 'profile'},
   { path: '/login', component: login, name: 'login'},
   { path: '/logout', component: logout, name: 'logout'},
-  
+
   { path: '/orders', component: order },
   { path: '/orders/new/order', component: orderAdd },
 
   { path: '/invoices', component: invoice },
-  { path: '/invoices/:id', component: invoiceInfo },
+  { path: '/invoices/info', component: invoiceInfo },
+  { path: '/invoices/:id' , component: invoiceEnd},
 
-
-  { path: '/stats/orders/:id', component: stats },
+  { path: '/restaurantTables', component: r_tables },
+  { path: '/restaurantTables/add', component: r_tablesAdd },
+  { path: '/restaurantTables/show/:table_number', component: r_tablesShow },
+  { path: '/restaurantTables/edit/:table_number', component: r_tablesEdit }
 ];
 
 const router = new VueRouter({
@@ -83,11 +96,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if ((to.name == 'profile') || (to.name == 'logout')) {
-        store.commit('loadTokenAndUserFromSession');
-        
-        if (!store.state.user) {
-            console.log(store.state.user);
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.getters.loggedIn) {
             next("/login");
             return;
         }
@@ -104,6 +114,7 @@ const app = new Vue({
         invoices:[],
         meals: [],
         orders: []
-	}
+	},
+  store
 }).$mount('#app');
 

@@ -28,7 +28,7 @@
                     <td>{{ meal.total_price_preview}}</td>
                     <td>{{ meal.start }}</td>
                     <td>
-                        <button v-if="meal.state=='active'" @click="mealShow(meal)">Show</button>
+                        <button class="btn btn-info" v-if="meal.state=='active'" @click="mealShow(meal)">Show</button>
                     </td>
            
                 </tr>
@@ -51,18 +51,13 @@
             };
         },
         methods: {
-            getDate(date) {
-                return moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
-            },
-
             mealShow: function (meal) {
                 this.showingMeal = meal;
                 this.$emit('show-click', meal);
             },
         },
        computed: {
-            filteredMeals() {
-            	
+            filteredMeals() { 	
                 let category = this.selectedCategory;
                 let inputValue = this.writtenNumber;
                 let inputDate = this.writtenDate;
